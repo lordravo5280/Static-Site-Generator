@@ -13,15 +13,15 @@ def generate_page(from_path, template_path, dest_path, basepath):
     html_nodes = markdown_to_html_node(m_content)
     title = extract_title(m_content)
     html_final = html_nodes.to_html()
-    title_add = t_content.replace("{{ Title }}", title)
-    content_replace = title_add.replace("{{ Content }}", html_final)
-    template2 = content_replace.replace('href="/', 'href="' + basepath)
-    template2 = template2.replace('src="/', 'src="' + basepath)
+    result = t_content.replace("{{ Title }}", title)
+    result = result.replace("{{ Content }}", html_final)
+    result = result.replace('href="/', 'href="' + basepath)
+    result = result.replace('src="/', 'src="' + basepath)
 
     path = os.path.dirname(dest_path)
     os.makedirs(path, exist_ok=True)
     with open(dest_path, 'w') as full_html:
-        final_html = full_html.write(template2)
+        full_html.write(result)
 
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     for filename in os.listdir(dir_path_content):
