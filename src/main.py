@@ -2,6 +2,9 @@ from textnode import TextNode, TextType
 from generate_page import generate_pages_recursive
 import os
 import shutil
+import sys
+
+default_basepath = "/"
 
 #print("hello world")
 
@@ -26,13 +29,17 @@ def main():
     my_node = TextNode("wizard", TextType.BOLD, "https://bear.com")
     print(my_node)
 
+    basepath = default_basepath
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+
     if os.path.exists("public"):
         shutil.rmtree("public")
 
     copy_static("static", "public")
     print("Static files successfully copied to public directory")
 
-    generate_pages_recursive("content", "template.html", "public")
+    generate_pages_recursive("content", "template.html", "./docs", basepath)
 
 if __name__ == "__main__":
     main()
