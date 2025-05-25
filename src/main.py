@@ -4,8 +4,6 @@ import os
 import shutil
 import sys
 
-default_basepath = "/"
-
 #print("hello world")
 
 def copy_static(source_dir, dest_dir):
@@ -29,17 +27,16 @@ def main():
     my_node = TextNode("wizard", TextType.BOLD, "https://bear.com")
     print(my_node)
 
-    basepath = default_basepath
-    if len(sys.argv) > 1:
-        basepath = sys.argv[1]
+    basepath = sys.argv[1] if len(sys.argv) > 1 else '/'
     if not basepath.endswith("/"):
         basepath = basepath + "/"
         
+    print(f"Using basepath: {basepath}")
 
     if os.path.exists("public"):
         shutil.rmtree("public")
 
-    copy_static("static", "public")
+    copy_static("static", "docs")
     print("Static files successfully copied to public directory")
 
     generate_pages_recursive("content", "template.html", "./docs", basepath)
