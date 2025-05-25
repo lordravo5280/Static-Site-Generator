@@ -15,13 +15,13 @@ def generate_page(from_path, template_path, dest_path, basepath):
     html_final = html_nodes.to_html()
     title_add = t_content.replace("{{ Title }}", title)
     content_replace = title_add.replace("{{ Content }}", html_final)
-    template = content_replace.replace('href="/', 'href="' + basepath)
-    template = template.replace('src="/', 'src="' + basepath)
+    template2 = content_replace.replace('href="/', 'href="' + basepath)
+    template2 = template2.replace('src="/', 'src="' + basepath)
 
     path = os.path.dirname(dest_path)
     os.makedirs(path, exist_ok=True)
     with open(dest_path, 'w') as full_html:
-        final_html = full_html.write(template)
+        final_html = full_html.write(template2)
 
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     for filename in os.listdir(dir_path_content):
